@@ -109,4 +109,4 @@ def feedback_log():
 
 if __name__ == '__main__':
     init_db()  # Initialize the database and create the table if it doesn't exist
-    app.run(debug=True, host='192.168.178.21', port=5000)
+    app.run(debug=True, host='192.168.1.1', port=5000)

@@ -32,7 +32,7 @@ body.cold {
 
 /* Styling the image */
 .feedback-image {
-    max-width: 20%;    /* Limit image width to 60% of the container */
+    max-width: 60%;    /* Limit image width to 60% of the container */
     height: auto;
     margin-top: 20px;
     margin-bottom: 20px; /* Add space below image */
