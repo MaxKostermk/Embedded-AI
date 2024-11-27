@@ -1,0 +1,46 @@
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Background and text for the 'Too Hot' route */
+body.hot {
+    background-color: #FF5733; /* Red/orange for hot */
+    background-image: url('/static/images/hot_background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Background and text for the 'Too Cold' route */
+body.cold {
+    background-color: #3498DB; /* Blue for cold */
+    background-image: url('/static/images/cold_background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Styling the image */
+.feedback-image {
+    max-width: 20%;    /* Limit image width to 60% of the container */
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 20px; /* Add space below image */
+}
+
+/* Footer Styling */
+.footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ddd;
+}
