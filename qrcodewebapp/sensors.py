@@ -36,6 +36,7 @@ def read_valve():
     cursor.execute(f"INSERT INTO sensor (timestamp, value, device_id) VALUES (?, ?, ?)", (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), response, "valve" ))
     conn.commit()
     conn.close()
+    return float(response)
 
 def read_occ():
     """
@@ -51,6 +52,7 @@ def read_occ():
     cursor.execute(f"INSERT INTO sensor (timestamp, value, device_id) VALUES (?, ?, ?)", (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), response, "occ" ))
     conn.commit()
     conn.close()
+    return int(response)
 
 def read_temp():
     """
@@ -64,5 +66,7 @@ def read_temp():
     cursor.execute(f"INSERT INTO sensor (timestamp, value, device_id) VALUES (?, ?, ?)", (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), response, "temp" ))
     conn.commit()
     conn.close()
+    return float(response)
 
 # WIP - loop where readings are taken, functions are called.
+
