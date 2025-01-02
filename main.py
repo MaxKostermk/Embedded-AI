@@ -1,5 +1,5 @@
 from Algorithm.simulation import ContextualBandit, get_context
-from qrcodewebapp.sensors import read_temp, read_occ, read_valve
+from qrcodewebapp.sensors import read_temp, read_occ, read_valve, GENERALURL
 import sqlite3
 from datetime import datetime, timedelta
 import requests
@@ -8,7 +8,7 @@ import os
 # Paths and constants
 DB_FILE = os.path.join(os.path.dirname(__file__), 'database', 'feedback.db')
 
-GENERALURL = "http://localhost:8123/api/states/"
+
 
 HEADERS = {
     "Authorization": "Bearer TOKEN",  # Replace TOKEN with the devices Home Assistant API token
