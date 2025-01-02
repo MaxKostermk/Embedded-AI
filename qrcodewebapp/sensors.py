@@ -68,5 +68,3 @@ def read_temp():
     conn.close()
     return float(response)
 
-# WIP - loop where readings are taken, functions are called.
-
