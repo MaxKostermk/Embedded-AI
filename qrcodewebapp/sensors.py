@@ -2,6 +2,7 @@ import os
 import sqlite3
 from requests import get
 import datetime
+from main import GENERALURL
 
 DB_FILE = os.path.join(os.path.dirname(__file__), 'database', 'feedback.db')
 
@@ -28,7 +29,7 @@ def read_valve():
     """
     Eurotronic Comet Zigbee
     """
-    url = "http://localhost:8123/api/states/valve" # URL from home assistant (replace with actual URL)
+    url = GENERALURL + "valve" # URL from home assistant (replace with actual URL)
     response = get(url, headers=headers).json()['state'] # edit to the right value that shows valve feedback in HA
     
     conn = sqlite3.connect(DB_FILE)
@@ -44,7 +45,7 @@ def read_occ():
     Read presence sensor function
     Does not work with Zigbee, only Wi-Fi/BLE
     """
-    url = "http://localhost:8123/api/states/" # URL from home assistant (replace with actual URL)
+    url = GENERALURL + "presencesensor" # URL from home assistant (replace with actual URL)
     response = get(url, headers=headers).json()['state'] # edit to the right value that shows occupancy in HA
     
     conn = sqlite3.connect(DB_FILE)
@@ -58,7 +59,7 @@ def read_temp():
     """
     Aqara Temperatuursensor en luchtvochtigheidssensor TH-S02D
     """
-    url = "http://localhost:8123/api/states/" # URL from home assistant (replace with actual URL)
+    url = GENERALURL + "tempsensor" # URL from home assistant (replace with actual URL)
     response = get(url, headers=headers).json()['temperature'] # edit to the right value that shows temperature in HA
 
     conn = sqlite3.connect(DB_FILE)

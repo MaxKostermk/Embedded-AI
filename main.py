@@ -7,7 +7,9 @@ import os
 
 # Paths and constants
 DB_FILE = os.path.join(os.path.dirname(__file__), 'database', 'feedback.db')
+
 GENERALURL = "http://localhost:8123/api/states/"
+
 HEADERS = {
     "Authorization": "Bearer TOKEN",  # Replace TOKEN with the devices Home Assistant API token
     "Content-Type": "application/json",
