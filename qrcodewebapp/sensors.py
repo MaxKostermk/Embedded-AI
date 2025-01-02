@@ -2,7 +2,7 @@ import os
 import sqlite3
 from requests import get
 import datetime
-from main import GENERALURL
+
 
 DB_FILE = os.path.join(os.path.dirname(__file__), 'database', 'feedback.db')
 
