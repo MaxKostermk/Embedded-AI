@@ -1,5 +1,5 @@
 from Algorithm.simulation import ContextualBandit, get_context
-from qrcodewebapp.sensors import read_temp, read_occ, read_valve, GENERALURL
+from qrcodewebapp.sensors import read_temp, read_occ, read_valve, init_db, GENERALURL, TOKEN          
 import sqlite3
 from datetime import datetime, timedelta
 import requests
@@ -8,10 +8,8 @@ import os
 # Paths and constants
 DB_FILE = os.path.join(os.path.dirname(__file__), 'database', 'feedback.db')
 
-
-
 HEADERS = {
-    "Authorization": "Bearer TOKEN",  # Replace TOKEN with the devices Home Assistant API token
+    "Authorization": f"Bearer {TOKEN}",  
     "Content-Type": "application/json",
 }
 
@@ -66,18 +64,19 @@ def detect_valve_adjustment(current_valve_state):
 
 def update_valve_temperature(ideal_temperature):
     """Send the calculated ideal temperature to the valve."""
-    payload = {"state": ideal_temperature}  
+    payload = {"entity_id": "climate.eurotronic_spzb0001_thermostat", "temperature": ideal_temperature}
     try:
-        response = requests.post(GENERALURL + "valve", headers=HEADERS, json=payload) # be sure to change "valve" to actual URL that home assistant shows.
+        response = requests.post("http://localhost:8123/api/services/climate/set_temperature", headers=HEADERS, json=payload) # be sure to change "valve" to actual URL that home assistant shows.
         response.raise_for_status()
         print(f"Valve updated to: {ideal_temperature}°C")
     except requests.RequestException as e:
         print(f"Failed to update valve: {e}")
 
+init_db()
 for _ in range(100):  #100 iterations
-    temperature = read_temp()
-    occupancy = read_occ()
-    valve_state = read_valve()
+    temperature = read_temp(GENERALURL + "sensor.lumi_lumi_sensor_ht_agl02_temperature")
+    occupancy = read_occ(GENERALURL + "binary_sensor.presence_sensor_fp2_a6a8_presence_sensor_1")
+    valve_state = read_valve(GENERALURL + "climate.eurotronic_spzb0001_thermostat")
 
     # Derive context
     context = get_context(temperature, 50, occupancy)  # Assuming fixed humidity for simplicity
