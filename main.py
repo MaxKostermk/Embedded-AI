@@ -3,6 +3,7 @@ from qrcodewebapp.sensors import read_temp, read_occ, read_valve, init_db, GENER
 import sqlite3
 from datetime import datetime, timedelta
 import requests
+import time
 import os
 
 # Paths and constants
@@ -72,7 +73,20 @@ def update_valve_temperature(ideal_temperature):
     except requests.RequestException as e:
         print(f"Failed to update valve: {e}")
 
+def get_from_db(type, rows):
+    """Simple function to get data from historical database"""
+
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+    if type == feedback:
+        cursor.execute("SELECT feedback_type, MAX(timestamp) FROM feedback WHERE timestamp > ?", (datetime.now() - timedelta(minutes=10),))
+    else:
+        cursor.execute("SELECT  FROM sensor WHERE timestamp > ?", (datetime.now() - timedelta(minutes=10),))
+    row = cursor.fetchone()
+    conn.close()
+
 init_db()
+
 for _ in range(100):  #100 iterations
     temperature = read_temp(GENERALURL + "sensor.lumi_lumi_sensor_ht_agl02_temperature")
     occupancy = read_occ(GENERALURL + "binary_sensor.presence_sensor_fp2_a6a8_presence_sensor_1")
@@ -100,6 +114,5 @@ for _ in range(100):  #100 iterations
 
     # Report the calculated ideal temperature to the valve
     update_valve_temperature(ideal_temperature)
+    time.sleep(10)
 
-    print(f"Context: {context}, Action: {action}, Ideal Temp: {ideal_temperature}, Feedback: {feedback}, Valve Adjustment: {valve_adjustment}, Reward: {reward}")
-    print(f"Q-values for context {context}: {bandit.q_values[context]}")
