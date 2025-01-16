@@ -65,7 +65,7 @@ def detect_valve_adjustment(current_valve_state):
 
 def update_valve_temperature(ideal_temperature):
     """Send the calculated ideal temperature to the valve."""
-    payload = {"entity_id": "climate.eurotronic_spzb0001_thermostat", "temperature": ideal_temperature}
+    payload = {"entity_id": "climate.sonoff_trvzb_thermostat", "temperature": ideal_temperature}
     try:
         response = requests.post("http://localhost:8123/api/services/climate/set_temperature", headers=HEADERS, json=payload) # be sure to change "valve" to actual URL that home assistant shows.
         response.raise_for_status()
