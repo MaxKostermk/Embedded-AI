@@ -6,7 +6,7 @@ import requests
 import time
 import os
 import numpy as np
-GENERALURL = "http://217.63.23.225:8123/api/states/"
+GENERALURL = "http://localhost:8123/api/states/"
 
 class optimal_temperature(hass.Hass):
     def initialize(self):
@@ -108,7 +108,7 @@ class optimal_temperature(hass.Hass):
         """Send the calculated ideal temperature to the valve."""
         payload = {"entity_id": "climate.sonoff_trvzb_thermostat", "temperature": ideal_temperature}
         try:
-            response = requests.post("http://217.63.23.225:8123/api/services/climate/set_temperature", headers=self.HEADERS, json=payload) # be sure to change "valve" to actual URL that home assistant shows.
+            response = requests.post("http://localhost:8123/api/services/climate/set_temperature", headers=self.HEADERS, json=payload) # be sure to change to actual URL that home assistant shows.
             response.raise_for_status()
             print(f"Valve updated to: {ideal_temperature}°C")
         except requests.RequestException as e:
