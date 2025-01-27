@@ -1,4 +1,4 @@
-To control Home Assistant, a long-lived access token is needed. You can obtain this token with the following steps:
+To control Home Assistant by using any script, a long-lived access token is needed. You can obtain this token with the following steps:
  - Enter the Home Assistant GUI and log in.
  - Go to your account menu and the security tab.
  - Scroll down until you see 'Long-lived access token'
